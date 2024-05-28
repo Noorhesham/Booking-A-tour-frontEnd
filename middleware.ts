@@ -6,9 +6,9 @@ import { getUser } from "./actions/getUser";
 export async function middleware(request: NextRequest) {
   const isLogged = await getUser();
   console.log(request.nextUrl.pathname.includes("login"));
-  if (isLogged !== undefined && request.nextUrl.pathname.includes("login"))
-    return Response.redirect(new URL("/", request.nextUrl));
-  if(!isLogged&&request.nextUrl.pathname.includes('me')) return Response.redirect(new URL('/login',request.nextUrl))
+  if (isLogged && request.nextUrl.pathname.includes("login")) return Response.redirect(new URL("/", request.nextUrl));
+  if (!isLogged && request.nextUrl.pathname.includes("me"))
+    return Response.redirect(new URL("/login", request.nextUrl));
 }
 // See "Matching Paths" below to learn more
 export const config = {
